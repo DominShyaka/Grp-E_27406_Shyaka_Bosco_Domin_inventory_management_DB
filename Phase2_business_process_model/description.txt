@@ -1,0 +1,21 @@
+Scope Definition:
+Business Process: Inventory tracking and stock replenishment in a retail store.
+
+Objective: Ensure product availability by automating tracking, alerts, and reordering.
+
+Outcomes: Reduced stockouts, reduced food waste, accurate sales tracking, and better decision-making.
+
+  Key Entities / Actors
+Actor ------------> Department	Role
+Employee---------->	Records sales and updates stock
+Manager----------->	Monitors inventory, approves reorders
+Supplier---------->	Provides products for replenishment
+System (Inventory DB)-------->	Tracks stock levels, triggers alerts
+
+The inventory management process ensures real-time tracking of products sold and
+alerts the manager when stock falls below a threshold. Employees record sales, 
+which updates the system. When low stock is detected, the system notifies the manager,
+who reviews and approves reordering. Once suppliers deliver goods, 
+the stock is updated. This process improves decision-making, avoids overstock/understock situations, 
+and ensures smooth operations—all core goals of a Management Information System (MIS).
+
