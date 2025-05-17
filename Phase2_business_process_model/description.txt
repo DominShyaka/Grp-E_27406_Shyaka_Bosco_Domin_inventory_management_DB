@@ -1,21 +1,23 @@
-Scope Definition:
-Business Process: Inventory tracking and stock replenishment in a retail store.
+Title: Process of Managing Inventory  
 
-Objective: Ensure product availability by automating tracking, alerts, and reordering.
+This diagram shows the flow of the retail store inventory management process. It captures the operational processes of a store that utilizes a Management Information System (MIS) for more effective stock management.  
 
-Outcomes: Reduced stockouts, reduced food waste, accurate sales tracking, and better decision-making.
+An employee scans an item and the system records the sale. Next, the system updates stock quantity and determines whether it needs re-ordering. If there are sufficient stock levels, the system updates sufficiency records and proceeds to end.  
 
-  Key Entities / Actors
-Actor ------------> Department	Role
-Employee---------->	Records sales and updates stock
-Manager----------->	Monitors inventory, approves reorders
-Supplier---------->	Provides products for replenishment
-System (Inventory DB)-------->	Tracks stock levels, triggers alerts
+When stock levels are low, the system notifies the manager. After reviewing the stock, the manager decides to directly approve a reorder. An order is created for the supplier. A supplier is responsible for distributing the products and once supplied, the products are received and the system inventory is updated once more.  
 
-The inventory management process ensures real-time tracking of products sold and
-alerts the manager when stock falls below a threshold. Employees record sales, 
-which updates the system. When low stock is detected, the system notifies the manager,
-who reviews and approves reordering. Once suppliers deliver goods, 
-the stock is updated. This process improves decision-making, avoids overstock/understock situations, 
-and ensures smooth operations—all core goals of a Management Information System (MIS).
+The FLO provided by the MIS helps the store assist in:  
+
+- Decreasing stockouts and overstock situations  
+
+- All automated alerts and approvals  
+
+- Streamlined decision making  
+
+- Optimized inventory levels   
+  
+Human logic along with system logic can automatically update the database and alert the required personnel in real-time which improves operational decisions timely decision in a process.  
+
+By blending these approaches, operational performance is greatly improved.
+
 
