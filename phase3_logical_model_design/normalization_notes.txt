@@ -22,32 +22,38 @@ Table Justifications
 
 Products (product_id PK)
 
-→ product_name, category, price, stock_qty
+product_name, category, price, stock_qty
 
-✔ All attributes are fully dependent on product_id and describe the product.
+* All attributes are fully dependent on product_id and describe the product.
 
 Suppliers (supplier_id PK)
 
-→ supplier_name, contact_info, address
+supplier_name, contact_info, address
 
-✔ All supported attributes describe the supplier and depend on the supplier_id.
+* All supported attributes describe the supplier and depend on the supplier_id.
 
 Orders (order_id PK)
 
-→ product_id (FK), supplier_id (FK]), order_date, quantity
+product_id (FK), supplier_id (FK]), order_date, quantity
 
-✔ Each order is uniquely accompanied by order_id, and all attributes are directly related.
+* Each order is uniquely accompanied by order_id, and all attributes are directly related.
 
 Users (user_id PK)
 
-→ name, username, password, role
+name, username, password, role
 
-✔ Each user’s credentials and role are tied directly to their user_id.
+* Each user’s credentials and role are tied directly to their user_id.
 
 Sales (sale_id PK)
 
-→ product_id (FK), user_id (FK), sale_date, quantity_sold, total_price 
+product_id (FK), user_id (FK), sale_date, quantity_sold, total_price 
 
-✔ Each sale record, sale_id is record’s identifier completely dependent.
+* Each sale record, sale_id is record’s identifier completely dependent.
+
+Holidays (holiday_id PK)
+
+holiday_date, description
+
+* Each holiday record is uniquely identified and contains no derived data.
 
 
