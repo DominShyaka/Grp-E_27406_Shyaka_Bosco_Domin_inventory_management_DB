@@ -1,0 +1,19 @@
+-- Insert Categories
+INSERT INTO Categories VALUES (Categories_seq.NEXTVAL, 'Electronics');
+INSERT INTO Categories VALUES (Categories_seq.NEXTVAL, 'Furniture');
+
+-- Insert Suppliers
+INSERT INTO Suppliers VALUES (Suppliers_seq.NEXTVAL, 'Tech Supplies Ltd.', 'tech@example.com');
+INSERT INTO Suppliers VALUES (Suppliers_seq.NEXTVAL, 'Home Essentials Co.', 'home@example.com');
+
+-- Insert Users (Use hash function later)
+INSERT INTO Users VALUES (Users_seq.NEXTVAL, 'admin', UTL_I18N.STRING_TO_RAW('admin123', 'AL32UTF8'), 'admin');
+INSERT INTO Users VALUES (Users_seq.NEXTVAL, 'staff', UTL_I18N.STRING_TO_RAW('staff123', 'AL32UTF8'), 'staff');
+
+-- Insert Products
+INSERT INTO Products VALUES (Products_seq.NEXTVAL, 'Smartphone', 1, 1, 50, 10);
+INSERT INTO Products VALUES (Products_seq.NEXTVAL, 'Office Chair', 2, 2, 20, 5);
+
+-- Insert Transactions
+INSERT INTO Transactions VALUES (Transactions_seq.NEXTVAL, 1, 5, 'OUT', SYSDATE, 1);
+INSERT INTO Transactions VALUES (Transactions_seq.NEXTVAL, 2, 10, 'IN', SYSDATE, 2);
