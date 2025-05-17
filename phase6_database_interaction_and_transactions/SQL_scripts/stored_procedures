@@ -1,0 +1,39 @@
+CREATE OR REPLACE PROCEDURE AddProduct (
+    p_ProductName IN VARCHAR2,
+    p_CategoryID IN NUMBER,
+    p_SupplierID IN NUMBER,
+    p_Quantity IN NUMBER
+)
+AS
+BEGIN
+    INSERT INTO Products (ProductID, ProductName, CategoryID, SupplierID, QuantityInStock)
+    VALUES (Products_seq.NEXTVAL, p_ProductName, p_CategoryID, p_SupplierID, p_Quantity);
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Failed to add product: ' || SQLERRM);
+END;
+/
+CREATE OR REPLACE PROCEDURE RecordTransaction (
+    p_ProductID IN NUMBER,
+    p_Quantity IN NUMBER,
+    p_Type IN VARCHAR2,
+    p_UserID IN NUMBER
+)
+AS
+BEGIN
+    INSERT INTO Transactions (TransactionID, ProductID, Quantity, TransactionType, TransactionDate, UserID)
+    VALUES (Transactions_seq.NEXTVAL, p_ProductID, p_Quantity, p_Type, SYSDATE, p_UserID);
+
+    IF p_Type = 'IN' THEN
+        UPDATE Products SET QuantityInStock = QuantityInStock + p_Quantity WHERE ProductID = p_ProductID;
+    ELSIF p_Type = 'OUT' THEN
+        UPDATE Products SET QuantityInStock = QuantityInStock - p_Quantity WHERE ProductID = p_ProductID;
+    END IF;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Failed to record transaction: ' || SQLERRM);
+END;
+/
