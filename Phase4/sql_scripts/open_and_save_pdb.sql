@@ -1,0 +1,2 @@
+ALTER PLUGGABLE DATABASE e_27406_shyaka_inventory_db OPEN;
+ALTER PLUGGABLE DATABASE e_27406_shyaka_inventory_db SAVE STATE;
