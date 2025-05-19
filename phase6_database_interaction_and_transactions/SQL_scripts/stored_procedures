@@ -37,3 +37,46 @@ EXCEPTION
         RAISE_APPLICATION_ERROR(-20002, 'Failed to record transaction: ' || SQLERRM);
 END;
 /
+CREATE OR REPLACE PROCEDURE UpdateProduct(
+    p_ProductID      IN NUMBER,
+    p_ProductName    IN VARCHAR2,
+    p_CategoryID     IN NUMBER,
+    p_SupplierID     IN NUMBER,
+    p_Quantity       IN NUMBER,
+    p_ReorderLevel   IN NUMBER
+) AS
+BEGIN
+    UPDATE Products
+    SET
+        ProductName = p_ProductName,
+        CategoryID = p_CategoryID,
+        SupplierID = p_SupplierID,
+        QuantityInStock = p_Quantity,
+        ReorderLevel = p_ReorderLevel
+    WHERE ProductID = p_ProductID;
+
+    IF SQL%ROWCOUNT = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No product found with ID ' || p_ProductID);
+    ELSE
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('Product with ID ' || p_ProductID || ' has been updated.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error updating product: ' || SQLERRM);
+END;
+/
+CREATE OR REPLACE PROCEDURE DeleteProduct(p_ProductID IN NUMBER) AS
+BEGIN
+    DELETE FROM Products
+    WHERE ProductID = p_ProductID;
+
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Product with ID ' || p_ProductID || ' has been deleted.');
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No product found with ID ' || p_ProductID);
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error deleting product: ' || SQLERRM);
+END;
+/
