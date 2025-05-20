@@ -1,0 +1,8 @@
+CREATE TABLE Audit_log (
+    AuditID NUMBER GENERATED ALWAYS AS IDENTITY,
+    Username VARCHAR2(50),
+    Operation VARCHAR2(10),
+    TableName VARCHAR2(50),
+    ActionTime TIMESTAMP DEFAULT SYSTIMESTAMP,
+    Status VARCHAR2(20)
+);
