@@ -1,0 +1,7 @@
+CREATE TABLE HolidayDates (
+    HolidayDate DATE PRIMARY KEY,
+    Description VARCHAR2(100)
+);
+---------------------- insert data into holidays for known ones---------------------------------------
+INSERT INTO HolidayDates VALUES (TO_DATE('2025-07-01', 'YYYY-MM-DD'), 'Independence Day');
+INSERT INTO HolidayDates VALUES (TO_DATE('2025-07-04', 'YYYY-MM-DD'), 'Liberation Day');
