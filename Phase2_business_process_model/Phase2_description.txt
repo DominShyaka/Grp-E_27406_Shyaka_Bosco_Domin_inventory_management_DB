@@ -1,4 +1,4 @@
-Title: Process of Managing Inventory  
+**Title: Process of Managing Inventory**  
 
 This diagram shows the flow of the retail store inventory management process. It captures the operational processes of a store that utilizes a Management Information System (MIS) for more effective stock management.  
 
