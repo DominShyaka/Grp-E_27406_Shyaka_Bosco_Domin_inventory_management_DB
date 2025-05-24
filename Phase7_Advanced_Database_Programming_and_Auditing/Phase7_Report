@@ -1,0 +1,96 @@
+# 📘 Phase VII – Advanced Programming and Auditing Report
+
+
+## ✅ Simple Problem
+
+Employees sometimes alter product or sales records on weekdays or public holidays without approval, compromising data integrity.
+
+
+## 🎯 Objective
+
+* Restrict unauthorized changes during restricted times.
+* Implement audit trails for transparency and accountability.
+* Automate audit logging through packages and triggers.
+
+---
+
+## 📅 Reference Table Used
+
+
+CREATE TABLE holidays (
+    holiday_id      NUMBER PRIMARY KEY,
+    holiday_date    DATE UNIQUE,
+    description     VARCHAR2(100)
+);
+
+> Used to check if the current date is a public holiday.
+
+## 📋 Audit Table
+
+CREATE TABLE audit_log (
+    audit_id        NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id         NUMBER,
+    action_time     TIMESTAMP DEFAULT SYSTIMESTAMP,
+    operation       VARCHAR2(20),
+    status          VARCHAR2(10),
+    message         VARCHAR2(255)
+);
+> Logs every DML operation attempt, including allowed or blocked status.
+
+
+## 📦 Audit Package
+
+CREATE OR REPLACE PACKAGE audit_pkg IS
+  PROCEDURE log_action(p_user_id NUMBER, p_operation VARCHAR2, p_status VARCHAR2, p_message VARCHAR2);
+END;
+/
+
+CREATE OR REPLACE PACKAGE BODY audit_pkg IS
+  PROCEDURE log_action(p_user_id NUMBER, p_operation VARCHAR2, p_status VARCHAR2, p_message VARCHAR2) IS
+  BEGIN
+    INSERT INTO audit_log (user_id, operation, status, message)
+    VALUES (p_user_id, p_operation, p_status, p_message);
+  END;
+END;
+/
+```
+
+> Provides a reusable method for logging all activities.
+
+## 🔐 Trigger: Restrict Employee Operations
+
+CREATE OR REPLACE TRIGGER trg_restrict_employee_ops
+BEFORE INSERT OR UPDATE OR DELETE ON products
+FOR EACH ROW
+DECLARE
+    v_day VARCHAR2(10);
+    v_is_holiday NUMBER;
+    v_user_role VARCHAR2(20);
+    v_user_id NUMBER := 2; -- Simulated Employee
+BEGIN
+    SELECT TO_CHAR(SYSDATE, 'DY') INTO v_day FROM dual;
+
+    SELECT COUNT(*) INTO v_is_holiday
+    FROM holidays
+    WHERE holiday_date = TRUNC(SYSDATE);
+
+    SELECT role INTO v_user_role FROM users WHERE user_id = v_user_id;
+
+    IF v_user_role = 'Employee' AND (v_day IN ('MON', 'TUE', 'WED', 'THU', 'FRI') OR v_is_holiday > 0) THEN
+        audit_pkg.log_action(v_user_id, 'MODIFY_PRODUCTS', 'Denied', 'Blocked due to restricted day');
+        RAISE_APPLICATION_ERROR(-20001, 'Action not allowed: Weekday or holiday.');
+    ELSE
+        audit_pkg.log_action(v_user_id, 'MODIFY_PRODUCTS', 'Allowed', 'Action permitted.');
+    END IF;
+END;
+/
+
+> Blocks DML operations for employees during weekdays or holidays, and logs both allowed and denied attempts.
+
+## 🧪 Testing Output (Sample Queries)
+
+-- View audit logs
+SELECT * FROM audit_log ORDER BY action_time DESC;
+
+-- Confirm holiday blocking
+INSERT INTO products VALUES (5, 'Juice', 'Drinks', 1000, 10);  -- should be blocked or allowed based on role/date
