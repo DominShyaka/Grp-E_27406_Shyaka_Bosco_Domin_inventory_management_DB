@@ -1,0 +1,29 @@
+# 📘 Phase III – Logical Model Design (ERD)
+
+## ✅ Simple Problem
+
+There is no centralized structure linking products, sales, users, and suppliers, making inventory data tracking difficult.
+
+
+## 🎯 Objective
+
+Design a normalized Entity-Relationship Diagram (ERD) that represents the logical structure of the database and ensures efficient storage and retrieval.
+
+
+## 🗃️ Entities and Attributes
+
+ Entity        | Attributes                                                                              
+
+ **Products**  | product_id (PK), product_name, category, price, stock_qty                            
+ **Suppliers** | supplier_id (PK), supplier_name, contact_info, address                               
+ **Orders**    | order_id (PK), product_id (FK), supplier_id (FK), order_date, quantity              
+ **Users**     | user_id (PK), name, username, password, role                                           
+ **Sales**     | sale_id (PK), product_id (FK), user_id (FK), sale_date, quantity_sold, total_price 
+ **Holidays**  | holiday_id (PK), holiday_date, description                                             
+
+## 🔗 Relationships
+
+* Products ⬌ Orders ⬌ Suppliers
+* Products ⬌ Sales ⬌ Users
+* Holidays table is used to restrict certain database operations during specified dates.
+
