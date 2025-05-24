@@ -1,0 +1,4 @@
+Our inventory system requires tighter control to ensure that unauthorized data manipulations do not occur during restricted periods such as weekdays and national holidays. 
+To address this, we implement PL/SQL triggers that restrict INSERT, UPDATE, DELETE operations by employees from Monday to Friday and on upcoming public holidays. 
+We use a dedicated `holidays` table to check for public holidays. 
+Additionally, we apply auditing features to log all actions for transparency and accountability using packages and triggers.
